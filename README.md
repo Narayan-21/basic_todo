@@ -2,8 +2,10 @@
 
 This project contains a simple TODO application
 
-It has following features --
-- A user can sign up and sign in
-- A user can create a TODO
-- A user can see their existing TODOs.
-- A user can mark a TODO as done.
+Quickstart:
+
+1. Change directory to backend & run- 'node index.js' to start the frontend.
+In another terminal
+2. Change directory to frontend & run- 'npm run dev' to start the backend server
+
+Enjoy!!
