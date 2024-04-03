@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: "mongo"
+    volumes:
+      - data:/data/db
+    container_name: mongodb
+
+  backend:
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - logs:/app/logs #Named Volume
+      - ./backend:/app #Bind Mount
+      - /app/node_modules #Anonymous volume
+    depends_on:
+      - mongodb
+
+  frontend:
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    ports:
+      - 5173:5173
+    volumes:
+      - pubilc:/app/pubilc
+      - ./frontend/src:/app/src
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+volumes:
+  data:
+  logs:
+  pubilc:
+
+  # Steps -> 
+  # 1. services
+  # 1.1 backend - build + ports + volumes + depends_on(if any) + interactive mode (stdin_open - for the container input stream. tty - create the pseudo terminal which expects terminal input and output.)
+  # 1.2 frontend
+  # 1.3 DB service (if any)
+  # 2. List of named volumes specified in the services.
